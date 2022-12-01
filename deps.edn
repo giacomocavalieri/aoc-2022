@@ -1,10 +1,13 @@
 {:paths ["src" "resources"]
  :deps {}
  :aliases {:run  {:main-opts ["-m" "advent.core"]}
-           :test {:extra-paths ["test"]
-                  :extra-deps  {lambdaisland/kaocha {:mvn/version "1.71.1119"}}
-                  :main-opts   ["-m" "kaocha.runner"
-                                "--watch"
-                                "--fail-fast"
-                                "--focus" "advent.days.day-1-test"
-                                "--skip" ":slow"]}}}
+           :test/all   {:extra-paths ["test"]
+                        :extra-deps  {lambdaisland/kaocha {:mvn/version "1.71.1119"}}
+                        :main-opts   ["-m" "kaocha.runner"]}
+           :test/watch {:extra-paths ["test"]
+                        :extra-deps  {lambdaisland/kaocha {:mvn/version "1.71.1119"}}
+                        :main-opts   ["-m" "kaocha.runner"
+                                      "--watch"
+                                      "--fail-fast"
+                                      "--focus" "advent.days.day-1-test"
+                                      "--skip" ":slow"]}}}
