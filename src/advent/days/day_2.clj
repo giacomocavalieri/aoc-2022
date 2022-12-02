@@ -15,20 +15,20 @@
 (def my-letter-to-outcome {"X" :loss "Y" :draw "Z" :win})
 (def choice-to-points {:scissors 3 :paper 2 :rock 1})
 (def outcome-to-points {:win 6 :draw 3 :loss 0})
-(def what-loses {:rock :scissors :paper :rock :scissors :paper})
-(def what-beats {:rock :paper :paper :scissors :scissors :rock})
+(def what-loses-against {:rock :scissors :paper :rock :scissors :paper})
+(def what-wins-against {:rock :paper :paper :scissors :scissors :rock})
 
 (defn outcome-from-choices [opponents-choice my-choice]
   (cond
-    (= opponents-choice my-choice)              :draw
-    (= opponents-choice (what-beats my-choice)) :loss
-    (= opponents-choice (what-loses my-choice)) :win))
+    (= opponents-choice my-choice)                      :draw
+    (= opponents-choice (what-loses-against my-choice)) :win
+    (= opponents-choice (what-wins-against my-choice))  :loss))
 
 (defn choice-from-outcome [opponents-choice outcome]
   (case outcome
     :draw opponents-choice
-    :loss (what-loses opponents-choice)
-    :win  (what-beats opponents-choice)))
+    :loss (what-loses-against opponents-choice)
+    :win  (what-wins-against opponents-choice)))
 
 (defn solver [input choice-outcome]
   (->>
