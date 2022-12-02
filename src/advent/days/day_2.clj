@@ -33,8 +33,8 @@
 (defn solver [input choice-outcome]
   (->>
    (for [[opponents-letter my-letter] input
-         :let [opponents-choice            (opponents-letter-to-choice opponents-letter)
-               {:keys [my-choice outcome]} (choice-outcome opponents-choice my-letter)]]
+         :let [opponents-choice    (opponents-letter-to-choice opponents-letter)
+               [my-choice outcome] (choice-outcome opponents-choice my-letter)]]
      (+ (choice-to-points my-choice) (outcome-to-points outcome)))
    sum))
 
@@ -42,12 +42,12 @@
   (letfn [(choice-outcome [opponents-choice my-letter]
             (let [my-choice (my-letter-to-choice my-letter)
                   outcome   (outcome-from-choices opponents-choice my-choice)]
-              {:my-choice my-choice :outcome outcome}))]
+              [my-choice outcome]))]
     (solver input choice-outcome)))
 
 (defn part-b [input]
   (letfn [(choice-outcome [opponents-choice my-letter]
             (let [outcome   (my-letter-to-outcome my-letter)
                   my-choice (choice-from-outcome opponents-choice outcome)]
-              {:my-choice my-choice :outcome outcome}))]
+              [my-choice outcome]))]
     (solver input choice-outcome)))
