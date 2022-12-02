@@ -10,4 +10,7 @@
                                       "--watch"
                                       "--fail-fast"
                                       "--focus" "advent.days.day-2-test"
-                                      "--skip" ":slow"]}}}
+                                      "--skip" ":slow"]}
+           :test/watch-all {:extra-paths ["test"]
+                            :extra-deps  {lambdaisland/kaocha {:mvn/version "1.71.1119"}}
+                            :main-opts   ["-m" "kaocha.runner" "--watch" "--fail-fast"]}}}
