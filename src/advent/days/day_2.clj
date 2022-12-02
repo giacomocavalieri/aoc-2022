@@ -24,30 +24,20 @@
     (= opponents-choice (what-loses-against my-choice)) :win
     (= opponents-choice (what-wins-against my-choice))  :loss))
 
-(defn choice-from-outcome [opponents-choice outcome]
+(defn choice-to-get-desired-outcome [opponents-choice outcome]
   (case outcome
     :draw opponents-choice
     :loss (what-loses-against opponents-choice)
     :win  (what-wins-against opponents-choice)))
 
-(defn solver [input choice-outcome]
+(defn solver [input choice-from]
   (->>
    (for [[opponents-letter my-letter] input
-         :let [opponents-choice    (opponents-letter-to-choice opponents-letter)
-               [my-choice outcome] (choice-outcome opponents-choice my-letter)]]
+         :let [opponents-choice (opponents-letter-to-choice opponents-letter)
+               my-choice        (choice-from opponents-choice my-letter)
+               outcome          (outcome-from-choices opponents-choice my-choice)]]
      (+ (choice-to-points my-choice) (outcome-to-points outcome)))
    sum))
 
-(defn part-a [input]
-  (letfn [(choice-outcome [opponents-choice my-letter]
-            (let [my-choice (my-letter-to-choice my-letter)
-                  outcome   (outcome-from-choices opponents-choice my-choice)]
-              [my-choice outcome]))]
-    (solver input choice-outcome)))
-
-(defn part-b [input]
-  (letfn [(choice-outcome [opponents-choice my-letter]
-            (let [outcome   (my-letter-to-outcome my-letter)
-                  my-choice (choice-from-outcome opponents-choice outcome)]
-              [my-choice outcome]))]
-    (solver input choice-outcome)))
+(defn part-a [input] (solver input #(my-letter-to-choice %2)))
+(defn part-b [input] (solver input #(choice-to-get-desired-outcome %1 (my-letter-to-outcome %2))))
