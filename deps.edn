@@ -1,5 +1,5 @@
 {:paths ["src" "resources"]
- :deps {}
+ :deps {org.clojure/core.match {:mvn/version "1.0.0"}}
  :aliases {:run  {:main-opts ["-m" "advent.core"]}
            :test/all   {:extra-paths ["test"]
                         :extra-deps  {lambdaisland/kaocha {:mvn/version "1.71.1119"}}
@@ -9,5 +9,5 @@
                         :main-opts   ["-m" "kaocha.runner"
                                       "--watch"
                                       "--fail-fast"
-                                      "--focus" "advent.days.day-1-test"
+                                      "--focus" "advent.days.day-2-test"
                                       "--skip" ":slow"]}}}
