@@ -26,10 +26,10 @@
 
 (deftest ^:day-3-year-2022 test-year-2022-day-3-part-part-a
   (testing "[2022] Day 3 - part-a"
-    (is (= (day-3/part-a day-3/sample-input) nil))
-    (is (= (day-3/part-a day-3/input) nil))))
+    (is (= (day-3/part-a day-3/sample-input) 157))
+    (is (= (day-3/part-a day-3/input) 7878))))
 
 (deftest ^:day-3-year-2022 test-year-2022-day-3-part-part-b
   (testing "[2022] Day 3 - part-b"
-    (is (= (day-3/part-b day-3/sample-input) nil))
-    (is (= (day-3/part-b day-3/input) nil))))
+    (is (= (day-3/part-b day-3/sample-input) 70))
+    (is (= (day-3/part-b day-3/input) 2760))))
