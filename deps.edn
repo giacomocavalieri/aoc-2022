@@ -1,16 +1,8 @@
-{:paths ["src" "resources"]
- :deps {org.clojure/core.match {:mvn/version "1.0.0"}}
- :aliases {:run  {:main-opts ["-m" "advent.core"]}
-           :test/all   {:extra-paths ["test"]
-                        :extra-deps  {lambdaisland/kaocha {:mvn/version "1.71.1119"}}
-                        :main-opts   ["-m" "kaocha.runner"]}
-           :test/watch {:extra-paths ["test"]
-                        :extra-deps  {lambdaisland/kaocha {:mvn/version "1.71.1119"}}
-                        :main-opts   ["-m" "kaocha.runner"
-                                      "--watch"
-                                      "--fail-fast"
-                                      "--focus" "advent.days.day-2-test"
-                                      "--skip" ":slow"]}
-           :test/watch-all {:extra-paths ["test"]
-                            :extra-deps  {lambdaisland/kaocha {:mvn/version "1.71.1119"}}
-                            :main-opts   ["-m" "kaocha.runner" "--watch" "--fail-fast"]}}}
+{:paths ["src" "resources" "test"]
+
+ :deps {org.clojure/core.match {:mvn/version "1.0.0"}
+        clojure.java-time/clojure.java-time {:mvn/version "1.1.0"}
+        lambdaisland/kaocha {:mvn/version "1.71.1119"}}
+
+ :aliases {:run-all  {:main-opts ["-m" "advent.core" "run-all"]}
+           :watch-today {:main-opts ["-m" "advent.core" "watch-day"]}}}

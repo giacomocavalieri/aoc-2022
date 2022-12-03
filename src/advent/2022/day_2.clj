@@ -1,12 +1,7 @@
-(ns advent.days.day-2
-  (:require [advent.utils :refer [read-file split-on sum]]))
+(ns advent.2022.day-2
+  (:require [advent.utils :refer [lines read-file sum words]]))
 
-(defn parse-input [string]
-  (->>
-   string
-   (split-on #"\n")
-   (map #(split-on #" " %1))))
-
+(defn parse-input [string] (map words (lines string)))
 (def sample-input (parse-input "A Y\nB X\nC Z"))
 (def input (parse-input (read-file "day-2.txt")))
 
@@ -31,7 +26,7 @@
     :win  (what-wins-against opponents-choice)))
 
 (defn solver [input choice-from]
-  (->>
+  (->
    (for [[opponents-letter my-letter] input
          :let [opponents-choice (opponents-letter-to-choice opponents-letter)
                my-choice        (choice-from opponents-choice my-letter)
@@ -39,5 +34,13 @@
      (+ (choice-to-points my-choice) (outcome-to-points outcome)))
    sum))
 
-(defn part-a [input] (solver input #(my-letter-to-choice %2)))
-(defn part-b [input] (solver input #(choice-to-get-desired-outcome %1 (my-letter-to-outcome %2))))
+(defn part-a [input]
+  (solver input
+          (fn [_opponents-choice my-letter]
+            (my-letter-to-choice my-letter))))
+
+(defn part-b [input]
+  (solver input
+          (fn [opponents-choice my-letter]
+            (let [desired-outcome (my-letter-to-outcome my-letter)]
+              (choice-to-get-desired-outcome opponents-choice desired-outcome)))))
