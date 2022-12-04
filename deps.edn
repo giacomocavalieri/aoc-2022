@@ -5,4 +5,5 @@
         lambdaisland/kaocha {:mvn/version "1.71.1119"}}
 
  :aliases {:run-all  {:main-opts ["-m" "advent.core" "run-all"]}
-           :watch-today {:main-opts ["-m" "advent.core" "watch-day"]}}}
+           :watch-today {:main-opts ["-m" "advent.core" "watch-day"]}
+           :watch-all {:main-opts ["-m" "advent.core" "watch-all"]}}}
