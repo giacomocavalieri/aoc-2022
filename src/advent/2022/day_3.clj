@@ -5,27 +5,15 @@
 (defn parse-input [string] (map seq (lines string)))
 (def sample-input (parse-input "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw"))
 (def input (parse-input (read-file "day-3.txt")))
-(defn find-common-keys [lines] (apply intersection (map set lines)))
 
 (defn to-rank [letter]
   (cond
     (Character/isUpperCase letter) (+ 27 (- (int letter) (int \A)))
-    :else (inc (- (int letter) (int \a)))))
+    (Character/isLowerCase letter) (inc  (- (int letter) (int \a)))))
 
-(defn part-a [input]
-  (-> (for [line input
-            :let [[upper lower] (split-in-half line)
-                  keys-upper (set upper)
-                  keys-lower (set lower)
-                  common-keys (intersection keys-upper keys-lower)
-                  common-key (first common-keys)]]
-        (to-rank common-key))
-      sum))
+(defn find-common-key [group] (let [key-sets (map set group)] (first (apply intersection key-sets))))
+(defn rank-common-key [group] (to-rank (find-common-key group)))
+(defn solver [groups] (sum (map rank-common-key groups)))
 
-(defn part-b [input]
-  (->
-   (for [chunk (partition 3 input)
-         :let [common-keys (find-common-keys chunk)
-               common-key (first common-keys)]]
-     (to-rank common-key))
-   sum))
+(defn part-a [input] (solver (map split-in-half input)))
+(defn part-b [input] (solver (partition 3 input)))

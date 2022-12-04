@@ -17,3 +17,4 @@
 (defn sort-descending [seq] (sort-by - seq))
 (defn sum [seq] (reduce + 0 seq))
 (defn split-in-half [coll] (let [size (count coll) half (/ size 2)] (split-at half coll)))
+(defn count-predicate [predicate collection] (count (filter predicate collection)))
