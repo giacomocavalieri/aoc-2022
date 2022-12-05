@@ -23,20 +23,24 @@
 (def sample-input (parse-input "    [D]    \n[N] [C]    \n[Z] [M] [P]\n 1   2   3 \n\nmove 1 from 2 to 1\nmove 3 from 1 to 3\nmove 2 from 2 to 1\nmove 1 from 1 to 2"))
 (def input (parse-input (read-file "day-5.txt")))
 
-(defn put-crates-into [stacks to crates] (update-in stacks [to] #(concat crates %)))
+(defn put-crates-into [stacks to crates]
+  (update-in stacks [to] #(concat crates %)))
+
 (defn take-crates-from [stacks from n-crates]
   (let [from-stack              (nth stacks from)
-        [crates new-from-stack] (split-at n-crates from-stack)]
-    [(assoc-in stacks [from] new-from-stack) crates]))
+        [crates new-from-stack] (split-at n-crates from-stack)
+        new-stacks              (assoc-in stacks [from] new-from-stack)]
+    [new-stacks crates]))
+
 (defn move-crates [stacks n-crates from to rearrange]
   (let [[new-stacks crates] (take-crates-from stacks from n-crates)]
     (put-crates-into new-stacks to (rearrange crates))))
 
-(defn follow-instructions [stacks instructions rearrange]
-  (let [stacks-to-string   (fn [stacks] (apply str (map first stacks)))
-        follow-instruction (fn [stacks [n-crates from to]] (move-crates stacks n-crates from to rearrange))
-        final-stacks       (reduce follow-instruction stacks instructions)]
+(defn solve [stacks instructions rearrange]
+  (let [follow-instruction (fn [stacks [n-crates from to]] (move-crates stacks n-crates from to rearrange))
+        final-stacks       (reduce follow-instruction stacks instructions)
+        stacks-to-string   (fn [stacks] (apply str (map first stacks)))]
     (stacks-to-string final-stacks)))
 
-(defn part-a [[stacks instructions]] (follow-instructions stacks instructions reverse))
-(defn part-b [[stacks instructions]] (follow-instructions stacks instructions identity))
+(defn part-a [[stacks instructions]] (solve stacks instructions reverse))
+(defn part-b [[stacks instructions]] (solve stacks instructions identity))
