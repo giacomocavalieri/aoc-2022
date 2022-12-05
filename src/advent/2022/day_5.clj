@@ -1,6 +1,6 @@
 (ns advent.2022.day-5
   (:require [advent.utils :refer [find-first letter? lines parse-int
-                                  partition-pad read-file split-on transpose]]))
+                                  partition-pad read-file split-on transpose words]]))
 
 (defn parse-stack-line [raw-stack-line]
   (let [parse-block (fn [raw-block] (find-first letter? raw-block))
@@ -13,10 +13,8 @@
     (vec (map #(remove nil? %) stacks))))
 
 (defn parse-instruction-line [raw-instruction]
-  (let [instruction-regex #"move ([0-9]*) from ([0-9]*) to ([0-9]*)"
-        instruction-parts (rest (re-find instruction-regex raw-instruction))
-        [move from to]    (map parse-int instruction-parts)]
-    [move (dec from) (dec to)]))
+  (let [[_move n-crates _from from _to to] (words raw-instruction)]
+    [(parse-int n-crates) (dec (parse-int from)) (dec (parse-int to))]))
 
 (defn parse-input [string]
   (let [[raw-stacks raw-instructions] (split-on #"\n\n" string)]
