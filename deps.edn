@@ -4,6 +4,6 @@
         clojure.java-time/clojure.java-time {:mvn/version "1.1.0"}
         lambdaisland/kaocha {:mvn/version "1.71.1119"}}
 
- :aliases {:run-all  {:main-opts ["-m" "advent.core" "run-all"]}
+ :aliases {:test-all    {:main-opts ["-m" "advent.core" "test-all"]}
            :watch-today {:main-opts ["-m" "advent.core" "watch-day"]}
-           :watch-all {:main-opts ["-m" "advent.core" "watch-all"]}}}
+           :watch-all   {:main-opts ["-m" "advent.core" "watch-all"]}}}

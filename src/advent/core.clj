@@ -1,7 +1,5 @@
 (ns advent.core
-  (:require [advent.2022.day-1]
-            [advent.2022.day-2]
-            [kaocha.repl]
+  (:require [kaocha.repl]
             [kaocha.watch]
             [java-time.api :as jt]))
 
@@ -11,7 +9,7 @@
 (def config (kaocha.repl/config))
 (defn id-keyword-from-day-year [day year] (keyword (str "day-" day "-year-" year)))
 
-(defn run-all [] (kaocha.repl/run-all))
+(defn test-all [] (kaocha.repl/run-all))
 (defn watch-all [] (kaocha.watch/run config))
 (defn watch-day [day year]
   (let [id-keyword (id-keyword-from-day-year day year)
@@ -19,9 +17,9 @@
     (kaocha.watch/run new-config)))
 
 (defn -main [mode & [raw-day raw-year]]
-  (let [day (if (nil? raw-day) current-day raw-day)
+  (let [day  (if (nil? raw-day) current-day raw-day)
         year (if (nil? raw-year) current-year raw-year)]
     (case mode
       "watch-all" (watch-all)
       "watch-day" (watch-day day year)
-      "run-all"   (run-all))))
+      "test-all"  (test-all))))

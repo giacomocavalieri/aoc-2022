@@ -7,6 +7,7 @@
 
 ; Parsing 
 (defn parse-int [string] (Integer/parseInt string))
+(defn letter? [char] (Character/isLetter char))
 
 ; String manipulation
 (defn split-on [regex string] (split string regex))
@@ -18,3 +19,6 @@
 (defn sum [seq] (reduce + 0 seq))
 (defn split-in-half [coll] (let [size (count coll) half (/ size 2)] (split-at half coll)))
 (defn count-predicate [predicate collection] (count (filter predicate collection)))
+(defn transpose [& xs] (apply map list xs))
+(defn find-first [predicate coll] (first (filter predicate coll)))
+(defn partition-pad [n pad coll] (partition n n (repeat pad) coll))
