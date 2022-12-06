@@ -22,3 +22,11 @@
 (defn transpose [& xs] (apply map list xs))
 (defn find-first [predicate coll] (first (filter predicate coll)))
 (defn partition-pad [n pad coll] (partition n n (repeat pad) coll))
+(defn enumerate
+  ([coll starting] (map-indexed (fn [index x] [(+ starting index) x]) coll))
+  ([coll] (enumerate coll 0)))
+(defn all-different? [xs]
+  (let [n-xs        (count xs)
+        unique-xs   (set xs)
+        n-unique-xs (count unique-xs)]
+    (= n-xs n-unique-xs)))
