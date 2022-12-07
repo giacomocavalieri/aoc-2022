@@ -2,6 +2,9 @@
   (:require [clojure.string :refer [split]]
             [clojure.java.io :as io]))
 
+; Error
+(defn fail [x] (throw (RuntimeException. (str x))))
+
 ; File reading
 (defn read-file [file-name] (slurp (io/resource file-name)))
 
@@ -11,8 +14,8 @@
 
 ; String manipulation
 (defn split-on [regex string] (split string regex))
-(defn lines [string] (split-on #"\n" string))
-(defn words [string] (split-on #"\s\s*" string))
+(defn lines [string] (when string (split-on #"\n" string)))
+(defn words [string] (when string (split-on #"\s\s*" string)))
 
 ; Sequences
 (defn sort-descending [seq] (sort-by - seq))
