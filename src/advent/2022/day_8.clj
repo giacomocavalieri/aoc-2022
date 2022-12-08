@@ -1,42 +1,33 @@
 (ns advent.2022.day-8
-  (:require [advent.utils :refer [bool->int lines parse-int read-file take-while+]]
-            [clojure.core.matrix :as matrix :refer [matrix]]))
+  (:require [advent.utils :refer [char->digit lines read-file take-until transpose]]))
 
-(defn parse-line [string] (->> string seq (map str) (map parse-int) matrix))
-(defn parse-input [string] (->> string lines (map parse-line) matrix))
+(defn parse-line [string] (mapv char->digit string))
+(defn parse-input [string] (mapv parse-line (lines string)))
 
 (def sample-input (parse-input "30373\n25512\n65332\n33549\n35390"))
 (def input (parse-input (read-file "day-8.txt")))
 
-(defn left-neighbours  [m row col] (rseq (subvec (matrix/get-row m row) 0 col)))
-(defn right-neighbours [m row col] (subvec (matrix/get-row m row) (inc col) (matrix/column-count m)))
-(defn above-neighbours [m row col] (rseq (subvec (matrix/get-column m col) 0 row)))
-(defn below-neighbours [m row col] (subvec (matrix/get-column m col) (inc row) (matrix/row-count m)))
-(defn orthogonal-neighbours [m row col]
-  (map #(% m row col) [left-neighbours right-neighbours above-neighbours below-neighbours]))
+(defn visible? [[tree & other-trees]] (every? #(< % tree) other-trees))
+(defn row-scenic-score [[tree & other-trees]] (count (take-until #(< % tree) other-trees)))
+(defn scenic-score [neighbours] (apply * (map row-scenic-score neighbours)))
 
-(defn visible-from-one-side? [trees row col tree]
-  (let [tallest? (fn [neighbours] (every? #(< % tree) neighbours))
-        orthogonal-neighbours (orthogonal-neighbours trees row col)]
-    (some tallest? orthogonal-neighbours)))
+(defn map-filter-with-neighbours [matrix f pred]
+  (let [transposed-matrix (apply transpose matrix)
+        cols (count (first matrix))
+        rows (count matrix)]
+    (for [row (range rows)
+          col (range cols)
+          :let [right (subvec (matrix row) col)
+                left  (rseq (subvec (matrix row) 0 (inc col)))
+                below (subvec (transposed-matrix col) row)
+                above (rseq (subvec (transposed-matrix col) 0 (inc row)))]
+          :when (pred [right left below above])]
+      (f [right left below above]))))
 
-(defn part-a [trees]
-  (->>
-   trees
-   (matrix/emap-indexed
-    (fn [[row col] tree] (visible-from-one-side? trees row col tree)))
-   (matrix/emap bool->int)
-   (matrix/esum)))
+(defn count-with-neighbours [matrix pred]
+  (count (map-filter-with-neighbours matrix (constantly nil) pred)))
+(defn map-with-neighbours [matrix f]
+  (map-filter-with-neighbours matrix f (constantly true)))
 
-(defn viewing-score [trees row col tree]
-  (let [neighbours->score (fn [neighbours] (->> neighbours (take-while+ #(< % tree)) count))
-        orthogonal-neighbours (orthogonal-neighbours trees row col)
-        scores (map neighbours->score orthogonal-neighbours)]
-    (apply * scores)))
-
-(defn part-b [trees]
-  (->>
-   trees
-   (matrix/emap-indexed
-    (fn [[row col] tree] (viewing-score trees row col tree)))
-   (matrix/emax)))
+(defn part-a [trees] (count-with-neighbours trees #(some visible? %)))
+(defn part-b [trees] (apply max (map-with-neighbours trees scenic-score)))

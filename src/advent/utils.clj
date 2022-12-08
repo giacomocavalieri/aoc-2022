@@ -10,6 +10,7 @@
 
 ; Parsing 
 (defn parse-int [string] (Integer/parseInt string))
+(defn char->digit [char] (Character/digit char 10))
 (defn letter? [char] (Character/isLetter char))
 
 ; String manipulation
@@ -22,12 +23,11 @@
 (defn sum [seq] (reduce + 0 seq))
 (defn split-in-half [coll] (let [size (count coll) half (/ size 2)] (split-at half coll)))
 (defn count-predicate [predicate collection] (count (filter predicate collection)))
-(defn bool->int [elem] (if elem 1 0))
-(defn transpose [& xs] (apply map list xs))
+(defn transpose [& xs] (apply mapv vector xs))
 (defn find-first [predicate coll] (first (filter predicate coll)))
 (defn partition-pad [n pad coll] (partition n n (repeat pad) coll))
 (defn indexes-of [pred coll] (keep-indexed #(when (pred %2) %1) coll))
-(defn take-while+ [pred coll]
+(defn take-until [pred coll]
   (let [[left right] (split-with pred coll)]
     (if (empty? right) left (conj left (first right)))))
 (defn all-different? [xs]
