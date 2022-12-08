@@ -10,7 +10,7 @@
 (defn parse-stacks [raw-stacks]
   (let [stacks-transposed (map parse-stack-line (butlast (lines raw-stacks)))
         stacks            (apply transpose stacks-transposed)]
-    (vec (map #(remove nil? %) stacks))))
+    (mapv #(remove nil? %) stacks)))
 
 (defn parse-instruction-line [raw-instruction]
   (let [[_move n-crates _from from _to to] (words raw-instruction)]
