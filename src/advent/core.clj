@@ -1,6 +1,7 @@
 (ns advent.core
   (:require [kaocha.repl]
             [kaocha.watch]
+            [kaocha.result :refer [failed?]]
             [java-time.api :as jt]))
 
 (def now (jt/local-date))
@@ -9,7 +10,9 @@
 (def config (kaocha.repl/config))
 (defn id-keyword-from-day-year [day year] (keyword (str "day-" day "-year-" year)))
 
-(defn test-all [] (kaocha.repl/run-all))
+(defn test-all []
+  (let [test-result (kaocha.repl/run-all)]
+    (when (failed? test-result) (System/exit 1))))
 (defn watch-all [] (kaocha.watch/run config))
 (defn watch-day [day year]
   (let [id-keyword (id-keyword-from-day-year day year)
