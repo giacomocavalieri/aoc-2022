@@ -18,6 +18,10 @@
 (defn lines [string] (when string (split-on #"\n" string)))
 (defn words [string] (when string (split-on #"\s\s*" string)))
 
+; Points
+(defn chess-distance [point1 point2] (apply max (mapv #(abs (- %1 %2)) point1 point2)))
+(defn chess-adjacent? [point1 point2] (<= (chess-distance point1 point2) 1))
+
 ; Sequences
 (defn sort-descending [seq] (sort-by - seq))
 (defn sum [seq] (reduce + 0 seq))

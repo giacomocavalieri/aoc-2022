@@ -7,6 +7,7 @@
             [advent.2022.day-6 :as day-6]
             [advent.2022.day-7 :as day-7]
             [advent.2022.day-8 :as day-8]
+            [advent.2022.day-9 :as day-9]
             [clojure.test :refer [deftest is testing]]))
 
 (deftest ^:day-1-year-2022 test-year-2022-day-1-part-part-a
@@ -96,3 +97,14 @@
   (testing "[2022] Day 8 - part-b"
     (is (= (day-8/part-b day-8/sample-input) 8))
     (is (= (day-8/part-b day-8/input) 157320))))
+
+(deftest ^:day-9-year-2022 test-year-2022-day-9-part-part-a
+  (testing "[2022] Day 9 - part-a"
+    (is (= (day-9/part-a day-9/sample-input-a) 13))
+    (is (= (day-9/part-a day-9/input) 5513))))
+
+(deftest ^:day-9-year-2022 test-year-2022-day-9-part-part-b
+  (testing "[2022] Day 9 - part-b"
+    (is (= (day-9/part-b day-9/sample-input-a) 1))
+    (is (= (day-9/part-b day-9/sample-input-b) 36))
+    (is (= (day-9/part-b day-9/input) 2427))))
