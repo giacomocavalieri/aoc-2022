@@ -1,6 +1,6 @@
 (ns advent.utils
-  (:require [clojure.string :refer [split]]
-            [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]
+            [clojure.string :refer [join split]]))
 
 ; Error
 (defn fail [x] (throw (RuntimeException. (str x))))
@@ -17,6 +17,8 @@
 (defn split-on [regex string] (split string regex))
 (defn lines [string] (when string (split-on #"\n" string)))
 (defn words [string] (when string (split-on #"\s\s*" string)))
+(defn unlines [lines] (join "\n" lines))
+(defn unwords [words] (join " " words))
 
 ; Points
 (defn chess-distance [point1 point2] (apply max (mapv #(abs (- %1 %2)) point1 point2)))

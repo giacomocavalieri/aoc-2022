@@ -1,6 +1,6 @@
 (ns advent.2022.extra.day-5
   (:require [advent.2022.day-5 :refer [move-crates]]
-            [advent.utils :refer [transpose]]
+            [advent.utils :refer [transpose unlines unwords]]
             [clojure.string :refer [join]]))
 
 (defn random-stack [max-height]
@@ -35,8 +35,6 @@
                 inverse-move [n-crates to from]]
             (recur (dec remaining-steps) new-stacks (conj moves inverse-move)))))))
 
-(defn unlines [lines] (join "\n" lines))
-(defn unwords [words] (join " " words))
 (defn serialize-move [[n-crates from to]] (str "move " n-crates " from " (inc from) " to " (inc to)))
 (defn pad-with-nil [desired-size coll]
   (let [coll-size (count coll)
