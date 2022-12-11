@@ -10,7 +10,7 @@
 
 (def sample-input-a (parse-input "R 4\nU 4\nL 3\nD 1\nR 4\nD 1\nL 5\nR 2"))
 (def sample-input-b (parse-input "R 5\nU 8\nL 8\nD 3\nR 17\nD 10\nL 25\nU 20"))
-(def input (parse-input (read-file "day-9.txt")))
+(def input (parse-input (read-file "2022/day-9.txt")))
 
 (defn move-point [[x y] direction]
   (case direction

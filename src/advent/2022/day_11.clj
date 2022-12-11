@@ -36,8 +36,8 @@
      :inspected-items 0}))
 
 (defn parse-input [string] (mapv parse-monkey (split-on #"\n\n" string)))
-(def sample-input (parse-input (read-file "day-11-sample.txt")))
-(def input (parse-input (read-file "day-11.txt")))
+(def sample-input (parse-input (read-file "2022/day-11-sample.txt")))
+(def input (parse-input (read-file "2022/day-11.txt")))
 
 (defn inspect-and-throw-item [monkeys monkey-number decrease-worry-level]
   (let [monkey (get monkeys monkey-number)

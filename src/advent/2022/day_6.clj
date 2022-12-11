@@ -7,7 +7,7 @@
 (def sample-input-c (parse-input "nppdvjthqldpwncqszvftbrmjlhg"))
 (def sample-input-d (parse-input "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"))
 (def sample-input-e (parse-input "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"))
-(def input (parse-input (read-file "day-6.txt")))
+(def input (parse-input (read-file "2022/day-6.txt")))
 
 (defn find-marker-position [buffer marker-size]
   (let [markers (partition marker-size 1 buffer)

@@ -7,8 +7,8 @@
     [["addx" raw-n]] (parse-int raw-n)
     [["noop"]] :noop))
 (defn parse-input [string] (mapv parse-line (lines string)))
-(def sample-input (parse-input (read-file "day-10-sample.txt")))
-(def input (parse-input (read-file "day-10.txt")))
+(def sample-input (parse-input (read-file "2022/day-10-sample.txt")))
+(def input (parse-input (read-file "2022/day-10.txt")))
 
 (defn add-op-cycles [values op]
   (let [current-register (peek values)]

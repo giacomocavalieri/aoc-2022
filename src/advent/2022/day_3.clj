@@ -4,7 +4,7 @@
 
 (defn parse-input [string] (map seq (lines string)))
 (def sample-input (parse-input "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw"))
-(def input (parse-input (read-file "day-3.txt")))
+(def input (parse-input (read-file "2022/day-3.txt")))
 
 (defn to-rank [letter]
   (cond

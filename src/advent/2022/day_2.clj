@@ -3,7 +3,7 @@
 
 (defn parse-input [string] (map words (lines string)))
 (def sample-input (parse-input "A Y\nB X\nC Z"))
-(def input (parse-input (read-file "day-2.txt")))
+(def input (parse-input (read-file "2022/day-2.txt")))
 
 (def opponents-letter-to-choice {"A" :rock "B" :paper "C" :scissors})
 (def my-letter-to-choice {"X" :rock "Y" :paper "Z" :scissors})

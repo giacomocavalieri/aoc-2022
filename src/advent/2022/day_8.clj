@@ -5,7 +5,7 @@
 (defn parse-input [string] (mapv parse-line (lines string)))
 
 (def sample-input (parse-input "30373\n25512\n65332\n33549\n35390"))
-(def input (parse-input (read-file "day-8.txt")))
+(def input (parse-input (read-file "2022/day-8.txt")))
 
 (defn visible? [[tree & other-trees]] (every? #(< % tree) other-trees))
 (defn row-scenic-score [[tree & other-trees]] (count (take-until #(< % tree) other-trees)))

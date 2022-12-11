@@ -21,7 +21,7 @@
     [(parse-stacks raw-stacks) (map parse-instruction-line (lines raw-instructions))]))
 
 (def sample-input (parse-input "    [D]    \n[N] [C]    \n[Z] [M] [P]\n 1   2   3 \n\nmove 1 from 2 to 1\nmove 3 from 1 to 3\nmove 2 from 2 to 1\nmove 1 from 1 to 2"))
-(def input (parse-input (read-file "day-5.txt")))
+(def input (parse-input (read-file "2022/day-5.txt")))
 
 (defn put-crates-into [stacks to crates]
   (update-in stacks [to] #(concat crates %)))
