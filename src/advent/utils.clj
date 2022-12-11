@@ -1,6 +1,6 @@
 (ns advent.utils
   (:require [clojure.java.io :as io]
-            [clojure.string :refer [join split]]))
+            [clojure.string :refer [join split trim]]))
 
 ; Error
 (defn fail [x] (throw (RuntimeException. (str x))))
@@ -16,7 +16,7 @@
 ; String manipulation
 (defn split-on [regex string] (split string regex))
 (defn lines [string] (when string (split-on #"\n" string)))
-(defn words [string] (when string (split-on #"\s\s*" string)))
+(defn words [string] (when string (split-on #"\s\s*" (trim string))))
 (defn unlines [lines] (join "\n" lines))
 (defn unwords [words] (join " " words))
 
@@ -24,8 +24,22 @@
 (defn chess-distance [point1 point2] (apply max (mapv #(abs (- %1 %2)) point1 point2)))
 (defn chess-adjacent? [point1 point2] (<= (chess-distance point1 point2) 1))
 
+; Math
+(defn divisible? [num divisor] (zero? (mod num divisor)))
+
+; Functions
+(defn apply-until-convergence [f x]
+  (loop [prev x]
+    (let [res (f prev)]
+      (if (= res prev) res (recur res)))))
+(defn apply-until-nil [f x]
+  (loop [prev x]
+    (let [res (f prev)]
+      (if (nil? res) prev (recur res)))))
+
 ; Sequences
 (defn sort-descending [seq] (sort-by - seq))
+(defn max-n [n seq] (take n (sort-descending seq)))
 (defn sum [seq] (reduce + 0 seq))
 (defn split-in-half [coll] (let [size (count coll) half (/ size 2)] (split-at half coll)))
 (defn count-predicate [predicate collection] (count (filter predicate collection)))

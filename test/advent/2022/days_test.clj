@@ -1,6 +1,7 @@
 (ns advent.2022.days-test
   (:require [advent.2022.day-1 :as day-1]
             [advent.2022.day-10 :as day-10]
+            [advent.2022.day-11 :as day-11]
             [advent.2022.day-2 :as day-2]
             [advent.2022.day-3 :as day-3]
             [advent.2022.day-4 :as day-4]
@@ -132,3 +133,12 @@
             "█░█░░█░░░░█░░░░█░█░░█░░░░█░░░░█░░█░█░░█░"
             "█░░█░████░████░█░░█░████░█░░░░█░░█░█░░█░"]))))
 
+(deftest ^:day-11-year-2022 test-year-2022-day-11-part-part-a
+  (testing "[2022] Day 11 - part-a"
+    (is (= (day-11/part-a day-11/sample-input) 10605))
+    (is (= (day-11/part-a day-11/input) 62491))))
+
+(deftest ^:day-11-year-2022 test-year-2022-day-11-part-part-b
+  (testing "[2022] Day 11 - part-b"
+    (is (= (day-11/part-b day-11/sample-input) 2713310158))
+    (is (= (day-11/part-b day-11/input) 17408399184))))
