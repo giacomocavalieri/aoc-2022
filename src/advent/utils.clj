@@ -47,6 +47,7 @@
 (defn find-first [predicate coll] (first (filter predicate coll)))
 (defn partition-pad [n pad coll] (partition n n (repeat pad) coll))
 (defn indexes-of [pred coll] (keep-indexed #(when (pred %2) %1) coll))
+(defn swap [v key1 key2] (assoc v key1 (v key2) key2 (v key1)))
 (defn take-until [pred coll]
   (let [[left right] (split-with pred coll)]
     (if (empty? right) left (conj left (first right)))))
