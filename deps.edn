@@ -3,7 +3,10 @@
  :deps {org.clojure/core.match {:mvn/version "1.0.0"}
         clojure.java-time/clojure.java-time {:mvn/version "1.1.0"}
         lambdaisland/kaocha {:mvn/version "1.71.1119"}
-        net.mikera/core.matrix {:mvn/version "0.63.0"}}
+        net.mikera/core.matrix {:mvn/version "0.63.0"}
+        aysylu/loom {:mvn/version "1.0.2"}
+        aysylu/titanium-loom {:mvn/version "0.1.4"}
+        clojurewerkz/titanium {:mvn/version "1.0.0-beta2"}}
 
  :aliases {:test-all    {:main-opts ["-m" "advent.core" "test-all"]}
            :watch-today {:main-opts ["-m" "advent.core" "watch-day"]}

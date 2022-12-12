@@ -24,6 +24,17 @@
 (defn chess-distance [point1 point2] (apply max (mapv #(abs (- %1 %2)) point1 point2)))
 (defn chess-adjacent? [point1 point2] (<= (chess-distance point1 point2) 1))
 
+; Matrices
+(defn matrix-indices-of [matrix to-find]
+  (for [[x row] (map-indexed vector matrix)
+        [y val] (map-indexed vector row)
+        :when (= to-find val)]
+    [x y]))
+
+(defn neighbouring-points [[x y]]
+  (let [deltas [[-1 0] [1 0] [0 -1] [0 1]]]
+    (mapv #(mapv + [x y] %) deltas)))
+
 ; Math
 (defn divisible? [num divisor] (zero? (mod num divisor)))
 
