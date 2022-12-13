@@ -3,6 +3,7 @@
             [advent.2022.day-10 :as day-10]
             [advent.2022.day-11 :as day-11]
             [advent.2022.day-12 :as day-12]
+            [advent.2022.day-13 :as day-13]
             [advent.2022.day-2 :as day-2]
             [advent.2022.day-3 :as day-3]
             [advent.2022.day-4 :as day-4]
@@ -153,3 +154,13 @@
   (testing "[2022] Day 12 - part-b"
     (is (= (day-12/part-b day-12/sample-input) 29))
     (is (= (day-12/part-b day-12/input) 512))))
+
+(deftest ^:day-13-year-2022 test-year-2022-day-13-part-a
+  (testing "[2022] Day 13 - part-a"
+    (is (= (day-13/part-a day-13/sample-input) 13))
+    (is (= (day-13/part-a day-13/input) 5806))))
+
+(deftest ^:day-13-year-2022 test-year-2022-day-13-part-b
+  (testing "[2022] Day 13 - part-b"
+    (is (= (day-13/part-b day-13/sample-input) 140))
+    (is (= (day-13/part-b day-13/input) 23600))))

@@ -57,7 +57,14 @@
 (defn transpose [& xs] (apply mapv vector xs))
 (defn find-first [predicate coll] (first (filter predicate coll)))
 (defn partition-pad [n pad coll] (partition n n (repeat pad) coll))
-(defn indexes-of [pred coll] (keep-indexed #(when (pred %2) %1) coll))
+(defn pad [to-size coll pad-value] (take to-size (concat coll (repeat pad-value))))
+(defn pad-same-size [pad-value coll1 coll2 & vs]
+  (let [all      (concat [coll1 coll2] vs)
+        max-size (apply max (map count all))]
+    (map #(pad max-size % pad-value) all)))
+(defn zip-pad [coll1 coll2] (apply map vector (pad-same-size nil coll1 coll2)))
+(defn indices-by-pred [pred coll] (keep-indexed #(when (pred %2) %1) coll))
+(defn index-of [elem coll] (.indexOf coll elem))
 (defn swap [v key1 key2] (assoc v key1 (v key2) key2 (v key1)))
 (defn take-until [pred coll]
   (let [[left right] (split-with pred coll)]
@@ -67,3 +74,6 @@
         unique-xs   (set xs)
         n-unique-xs (count unique-xs)]
     (= n-xs n-unique-xs)))
+
+; Macros
+(defmacro both [pred x y] (list 'and (list pred x) (list pred y)))

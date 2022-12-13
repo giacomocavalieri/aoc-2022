@@ -1,5 +1,5 @@
 (ns advent.2022.day-6
-  (:require [advent.utils :refer [all-different? indexes-of read-file]]))
+  (:require [advent.utils :refer [all-different? indices-by-pred read-file]]))
 
 (defn parse-input [string] (seq string))
 (def sample-input-a (parse-input "mjqjpqmgbljsphdztnvjfqwrcgsmlb"))
@@ -11,7 +11,7 @@
 
 (defn find-marker-position [buffer marker-size]
   (let [markers (partition marker-size 1 buffer)
-        index   (first (indexes-of all-different? markers))]
+        index   (first (indices-by-pred all-different? markers))]
     (+ marker-size index)))
 
 (defn part-a [input] (find-marker-position input 4))
