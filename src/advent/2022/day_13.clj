@@ -9,21 +9,21 @@
 
 (defn compare-packets [p1 p2]
   (cond
-    (both number? p1 p2) (cond (= p1 p2) :equals (> p1 p2) :greater (< p1 p2) :less)
-    (nil? p1) :less
-    (nil? p2) :greater
+    (both number? p1 p2) (compare p1 p2)
+    (nil? p1) -1
+    (nil? p2) 1
     (number? p1) (compare-packets [p1] p2)
     (number? p2) (compare-packets p1 [p2])
     ; If both packets are lists compare their elements pairwise (the nil pad is needed to avoid
     ; ignoring elements of one of the packets in case it is shorter than the other) the result
-    ; of the comparison is given by the first non :equals result, if all the results are :equal
-    ; then the packets are equal pair-by-pair and considered :equals
+    ; of the comparison is given by the first non 0 (i.e. equals) result, if all the results are
+    ; 0 then the packets are equal pair-by-pair and considered equals
     :else
     (let [pairs       (zip-pad p1 p2)
           comparisons (map #(apply compare-packets %) pairs)]
-      (nth (drop-while #(= :equals %) comparisons) 0 :equals))))
+      (nth (drop-while zero? comparisons) 0 0))))
 
-(defn packet< [p1 p2] (= :less (compare-packets p1 p2)))
+(defn packet< [p1 p2] (neg? (compare-packets p1 p2)))
 
 (defn part-a [packets]
   (let [pairs   (partition 2 packets)
