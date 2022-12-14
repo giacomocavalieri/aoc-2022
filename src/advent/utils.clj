@@ -20,10 +20,6 @@
 (defn unlines [lines] (join "\n" lines))
 (defn unwords [words] (join " " words))
 
-; Points
-(defn chess-distance [point1 point2] (apply max (mapv #(abs (- %1 %2)) point1 point2)))
-(defn chess-adjacent? [point1 point2] (<= (chess-distance point1 point2) 1))
-
 ; Matrices
 (defn matrix-indices-of [matrix to-find]
   (for [[x row] (map-indexed vector matrix)
@@ -39,16 +35,19 @@
 (defn divisible? [num divisor] (zero? (mod num divisor)))
 
 ; Functions
-(defn apply-until-convergence [f x]
+(defn repeat-until-convergence [f x]
   (loop [prev x]
     (let [res (f prev)]
       (if (= res prev) res (recur res)))))
-(defn apply-until-nil [f x]
+(defn repeat-until-nil [f x]
   (loop [prev x]
     (let [res (f prev)]
       (if (nil? res) prev (recur res)))))
 
-; Sequences
+; Sequences and collections
+(defn not-contains? [coll x] (not (contains? coll x)))
+(defn conj-non-nil [coll x] (if (nil? x) coll (conj coll x)))
+(defn range-inclusive [start end] (range start (inc end)))
 (defn sort-descending [seq] (sort-by - seq))
 (defn max-n [n seq] (take n (sort-descending seq)))
 (defn sum [seq] (reduce + 0 seq))
@@ -74,6 +73,16 @@
         unique-xs   (set xs)
         n-unique-xs (count unique-xs)]
     (= n-xs n-unique-xs)))
+
+; Points
+(defn chess-distance [point1 point2] (apply max (mapv #(abs (- %1 %2)) point1 point2)))
+(defn chess-adjacent? [point1 point2] (<= (chess-distance point1 point2) 1))
+(defn points-of-segment [[[x1 y1] [x2 y2]]]
+  (cond
+    (= x1 x2) (mapv vector (repeat x1) (range-inclusive (min y1 y2) (max y1 y2)))
+    (= y1 y2) (mapv vector (range-inclusive (min x1 x2) (max x1 x2)) (repeat y1))
+    :else     (throw (IllegalArgumentException.
+                      "I could not be bothered to implement a version for oblique segments"))))
 
 ; Macros
 (defmacro both [pred x y] (list 'and (list pred x) (list pred y)))

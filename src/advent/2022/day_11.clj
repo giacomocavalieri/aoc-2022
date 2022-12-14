@@ -1,5 +1,5 @@
 (ns advent.2022.day-11
-  (:require [advent.utils :refer [apply-until-nil divisible? lines max-n
+  (:require [advent.utils :refer [repeat-until-nil divisible? lines max-n
                                   parse-int read-file split-on words]]
             [clojure.core.match :refer [match]]
             [clojure.string :as str]))
@@ -52,7 +52,7 @@
          (assoc-in  [monkey-number :items] other-items))))))
 
 (defn make-turn [monkeys monkey-number decrease-worry-level]
-  (apply-until-nil #(inspect-and-throw-item % monkey-number decrease-worry-level) monkeys))
+  (repeat-until-nil #(inspect-and-throw-item % monkey-number decrease-worry-level) monkeys))
 
 (defn make-round [monkeys decrease-worry-level]
   (let [n-monkeys (count monkeys)]
