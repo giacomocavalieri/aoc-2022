@@ -47,7 +47,11 @@
 ; Sequences and collections
 (defn not-contains? [coll x] (not (contains? coll x)))
 (defn conj-non-nil [coll x] (if (nil? x) coll (conj coll x)))
-(defn range-inclusive [start end] (range start (inc end)))
+(defn range-inclusive
+  ([] (range))
+  ([end] (range (inc end)))
+  ([start end] (range start (inc end)))
+  ([start end step] (range start (inc end) step)))
 (defn sort-descending [seq] (sort-by - seq))
 (defn max-n [n seq] (take n (sort-descending seq)))
 (defn sum [seq] (reduce + 0 seq))
@@ -75,7 +79,9 @@
     (= n-xs n-unique-xs)))
 
 ; Points
-(defn chess-distance [point1 point2] (apply max (mapv #(abs (- %1 %2)) point1 point2)))
+(defn absolute-difference [x y] (abs (- x y)))
+(defn manhattan-distance [vec1 vec2] (sum (map absolute-difference vec1 vec2)))
+(defn chess-distance [point1 point2] (apply max (mapv absolute-difference point1 point2)))
 (defn chess-adjacent? [point1 point2] (<= (chess-distance point1 point2) 1))
 (defn points-of-segment [[[x1 y1] [x2 y2]]]
   (cond

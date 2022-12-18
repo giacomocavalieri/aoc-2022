@@ -5,6 +5,9 @@
             [advent.2022.day-12 :as day-12]
             [advent.2022.day-13 :as day-13]
             [advent.2022.day-14 :as day-14]
+            [advent.2022.day-15 :as day-15]
+            [advent.2022.day-16 :as day-16]
+            [advent.2022.day-17 :as day-17]
             [advent.2022.day-2 :as day-2]
             [advent.2022.day-3 :as day-3]
             [advent.2022.day-4 :as day-4]
@@ -175,3 +178,33 @@
   (testing "[2022] Day 14 - part-b"
     (is (= (day-14/part-b day-14/sample-input) 93))
     (is (= (day-14/part-b day-14/input) 32041))))
+
+(deftest ^:day-15-year-2022 test-year-2022-day-15-part-a
+  (testing "[2022] Day 15 - part-a"
+    (is (= (day-15/part-a day-15/sample-input 10) nil))
+    (is (= (day-15/part-a day-15/input 2000000) nil))))
+
+(deftest ^:day-15-year-2022 test-year-2022-day-15-part-b
+  (testing "[2022] Day 15 - part-b"
+    (is (= (day-15/part-b day-15/sample-input) nil))
+    (is (= (day-15/part-b day-15/input) nil))))
+
+(deftest ^:day-16-year-2022 test-year-2022-day-16-part-a
+  (testing "[2022] Day 16 - part-a"
+    (is (= (day-16/part-a day-16/sample-input) nil))
+    (is (= (day-16/part-a day-16/input) nil))))
+
+(deftest ^:day-16-year-2022 test-year-2022-day-16-part-b
+  (testing "[2022] Day 16 - part-b"
+    (is (= (day-16/part-b day-16/sample-input) nil))
+    (is (= (day-16/part-b day-16/input) nil))))
+
+(deftest ^:day-17-year-2022 test-year-2022-day-17-part-a
+  (testing "[2022] Day 17 - part-a"
+    (is (= (day-17/part-a day-17/sample-input) nil))
+    (is (= (day-17/part-a day-17/input) nil))))
+
+(deftest ^:day-17-year-2022 test-year-2022-day-17-part-b
+  (testing "[2022] Day 17 - part-b"
+    (is (= (day-17/part-b day-17/sample-input) nil))
+    (is (= (day-17/part-b day-17/input) nil))))
